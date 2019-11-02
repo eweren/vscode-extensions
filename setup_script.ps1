@@ -9,19 +9,19 @@ $codeExt = $desktop + '\extension.vsix'
 # Get the ID and security principal of the current user account
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
 $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
- 
+
 # Get the security principal for the Administrator role
 $adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
 
 
-if(Test-Path $choco) 
+if(Test-Path $choco)
 {
 Write-Host "Removing files."
 Remove-Item $choco
 Remove-Item $regFile
 Remove-Item $codeExt
 
-#### Install VSCode extension pack #### 
+#### Install VSCode extension pack ####
 Write-Host  "Install VSCode extension pack."
 $codeCmd = "--verbose --install-extension " + $codeExt
 "code " + $codeCmd | cmd
@@ -29,8 +29,8 @@ $codeCmd = "--verbose --install-extension " + $codeExt
 Write-Host  "Congrats. Everything's set up!"
 Read-Host -Prompt "Press Enter to exit"
 
-} 
-else 
+}
+else
 {
 
     # Check to see if we are currently running "as Administrator"
@@ -57,17 +57,16 @@ else
         Write-Host "Install applications."
         choco install $choco -y
 
-        
+
         #### Restart as admin to gain access to code as cmdlet ####
         $arguments = "Start-Process powershell.exe -Verb runAs -File " + $desktop + "\setup_script.ps1"
         Start-Process Powershell -NoNewWindow -ArgumentList $arguments
        }
 
-       else 
+       else
        {
         #### Restart as admin ####
         $arguments = "Start-Process powershell.exe -Verb runAs -File " + $desktop + "\setup_script.ps1"
         Start-Process Powershell -NoNewWindow -ArgumentList $arguments
        }
 }
- 
