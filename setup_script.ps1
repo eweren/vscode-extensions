@@ -26,6 +26,10 @@ Write-Host  "Install VSCode extension pack."
 $codeCmd = "--verbose --install-extension " + $codeExt
 "code " + $codeCmd | cmd
 
+Write-Host "Install nln"
+"npm login --registry 'https://nexus3.iplabs.de/repository/npm-iplabs/' --scope '@iplabs'" | cmd
+"npm install -g @iplabs/nln" | cmd
+
 Write-Host  "Congrats. Everything's set up!"
 Read-Host -Prompt "Press Enter to exit"
 
